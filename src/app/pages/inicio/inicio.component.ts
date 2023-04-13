@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class InicioComponent {
 nombre = "Fabian";
+loadingVisible = false;
+
+
+visualizarLoading(){
+  this.loadingVisible = true;
+  setTimeout(() => {
+    this.loadingVisible = false;
+  }, 2000); 
 }
+
+}
+
