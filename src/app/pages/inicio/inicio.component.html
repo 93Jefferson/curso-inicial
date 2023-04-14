@@ -2,4 +2,16 @@
 <h1>{{nombre}}</h1>
 <app-loading [visible]="loadingVisible" ></app-loading>
 
-<button (click)="visualizarLoading()" >Ver Loading</button>
+<div class="grid">
+    <div class="col-6">
+        <p-button label="Ver Loading" (onClick)="visualizarLoading()" ></p-button>
+    </div>
+    <div class="col-6">
+        <p-button label="Botón Prueba" icon="pi pi-save" (onClick)="irPaginaTabla()" ></p-button>
+    </div>    
+</div>
+
+
+
+
+
