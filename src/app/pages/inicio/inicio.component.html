@@ -1,5 +1,5 @@
 <p>inicio works!</p>
-<h1>{{nombre}}</h1>
+<h1>{{nombre+" "+apellido}}</h1>
 <app-loading [visible]="loadingVisible" ></app-loading>
 
 <div class="grid">
@@ -7,7 +7,7 @@
         <p-button label="Ver Loading" (onClick)="visualizarLoading()" ></p-button>
     </div>
     <div class="col-6">
-        <p-button label="Botón Prueba" icon="pi pi-save" (onClick)="irPaginaTabla()" ></p-button>
+        <p-button label="Botón Prueba" icon="pi pi-save" (onClick)="irPaginaTabla()"  iconPos="left"></p-button>
     </div>    
 </div>
 

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class InicioComponent {
 nombre = "Fabian";
+apellido = "Guaranda";
 loadingVisible = false;
 
 constructor(private ruta: Router){
