@@ -1,43 +1,40 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { IDataEmpleado, iEmpleados } from 'src/app/interfaces/empleadosInterfaces';
+import { IDataEmpleado } from 'src/app/interfaces/empleadosInterfaces';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-pagina-tabla',
   templateUrl: './pagina-tabla.component.html',
-  styleUrls: ['./pagina-tabla.component.css']
+  styleUrls: ['./pagina-tabla.component.css'],
+  
 })
 export class PaginaTablaComponent {
   listEmpleado: IDataEmpleado[] = [];
   columnTabla: any;
-  listMenu: MenuItem[] = [];
-  activeItem!: MenuItem;
+  
   constructor(private ruta: Router,    
-    private empleadoService: EmpleadoService){
+    private empleadoService: EmpleadoService,
+    private message: MessageService
+    ){
     
   }
 
   ngOnInit(): void {
     this.iniColumnTabla();
-    this.inicioMenu();
-    console.log('Hola estoy aqui desde ngOninit');
-    // this.empleadoService.getAllEmployee().subscribe(
-    //   (res) => {
-    //     console.log(res);
-    //     this.listEmpleado = res.data;
-    //   }, (error) => {
-    //     console.log(error);
-    //   }
-    // );
-
+     console.log('Hola estoy aqui desde ngOninit');
+  
     this.empleadoService.getAllEmployee().subscribe({
       next: (datos) => {
         console.log(datos);
         this.listEmpleado = datos.data;
+        this.message.add({ severity: 'success', summary: 'Success', detail: 'Proceso exitoso!' });
+
       },
       error: (err)=>{
+        this.message.add({ severity: 'error', summary: 'Error', detail: 'Hubo un problema! codigo error: '+err.status });
         console.log(err);
       }
     });
@@ -61,20 +58,7 @@ export class PaginaTablaComponent {
   ];
   }
 
-  inicioMenu(){
-    this.listMenu=[
-      {
-        label:'Cliente' 
-      },
-      {
-        label:'Empresa' 
-      }
-    ];
-
-    this.activeItem = this.listMenu[0];
-
-  }
-
+  
   regresarInicio(){
     this.ruta.navigate(['inicio']);
   }
