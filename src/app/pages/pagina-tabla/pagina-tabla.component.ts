@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDataEmpleado } from 'src/app/interfaces/empleadosInterfaces';
 import { EmpleadoService } from 'src/app/services/empleado.service';
@@ -11,10 +11,12 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./pagina-tabla.component.css'],
   
 })
-export class PaginaTablaComponent {
+export class PaginaTablaComponent implements OnInit {
+  
   listEmpleado: IDataEmpleado[] = [];
   columnTabla: any;
-  
+  loadingVisible = false;
+
   constructor(private ruta: Router,    
     private empleadoService: EmpleadoService,
     private message: MessageService
@@ -23,17 +25,22 @@ export class PaginaTablaComponent {
   }
 
   ngOnInit(): void {
+
+    this.loadingVisible = true;
+
     this.iniColumnTabla();
      console.log('Hola estoy aqui desde ngOninit');
   
     this.empleadoService.getAllEmployee().subscribe({
       next: (datos) => {
+        this.loadingVisible = false;
         console.log(datos);
         this.listEmpleado = datos.data;
         this.message.add({ severity: 'success', summary: 'Success', detail: 'Proceso exitoso!' });
 
       },
       error: (err)=>{
+        this.loadingVisible = false;
         this.message.add({ severity: 'error', summary: 'Error', detail: 'Hubo un problema! codigo error: '+err.status });
         console.log(err);
       }
